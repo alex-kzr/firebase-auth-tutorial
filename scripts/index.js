@@ -1,12 +1,18 @@
 const guideList = document.querySelector('.guides');
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
+const accountDetails = document.querySelector('.account-details');
 
-const setupNav = user => {
+const setupUI = user => {
     if(user){
+        const html = `
+            <div>Logged in as ${user.email}</div>
+        `;
+        accountDetails.innerHTML = html;
         loggedInLinks.forEach(item => item.classList.remove('hide'));
         loggedOutLinks.forEach(item => item.classList.add('hide'));
     }else{
+        accountDetails.innerHTML = '';
         loggedInLinks.forEach(item => item.classList.add('hide'));
         loggedOutLinks.forEach(item => item.classList.remove('hide'));
     }
