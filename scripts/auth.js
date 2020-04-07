@@ -9,8 +9,14 @@ signupForm.addEventListener('submit', e => {
     // sign up the user
     auth.createUserWithEmailAndPassword(email, password)
         .then(cred => {
-            console.log(cred.user);
             M.Modal.getInstance(document.querySelector('#modal-signup')).close();
             signupForm.reset();
-        }).catch();
+        }).catch(err => console.log(err));
+});
+
+// logout
+const logout = document.querySelector('#logout');
+logout.addEventListener('click', e => {
+    e.preventDefault();
+    auth.signOut().then(() => console.log('user logged out')).catch(err => console.log(err));
 });
