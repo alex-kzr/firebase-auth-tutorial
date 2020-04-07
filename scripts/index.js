@@ -1,4 +1,16 @@
 const guideList = document.querySelector('.guides');
+const loggedOutLinks = document.querySelectorAll('.logged-out');
+const loggedInLinks = document.querySelectorAll('.logged-in');
+
+const setupNav = user => {
+    if(user){
+        loggedInLinks.forEach(item => item.classList.remove('hide'));
+        loggedOutLinks.forEach(item => item.classList.add('hide'));
+    }else{
+        loggedInLinks.forEach(item => item.classList.add('hide'));
+        loggedOutLinks.forEach(item => item.classList.remove('hide'));
+    }
+}
 
 // setup guides
 const setupGuides = data => {
