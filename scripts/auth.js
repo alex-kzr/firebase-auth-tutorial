@@ -38,9 +38,13 @@ signupForm.addEventListener('submit', e => {
     // sign up the user
     auth.createUserWithEmailAndPassword(email, password)
         .then(cred => {
+            return db.collection('users').doc(cred.user.uid).set({
+                bio: signupForm['signup-bio'].value
+            });
+        }).then(() => {
             M.Modal.getInstance(document.querySelector('#modal-signup')).close();
             signupForm.reset();
-        }).catch(err => console.log(err));
+        }).catch(err => console.log(err));    
 });
 
 // logout
