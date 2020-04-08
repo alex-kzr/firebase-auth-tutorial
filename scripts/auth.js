@@ -6,16 +6,21 @@ adminForm.addEventListener('submit', e => {
     const addAdminRole = functions.httpsCallable('addAdminRole');
     addAdminRole({email: adminEmail}).then(result => {
         console.log(result);
+        adminForm.reset();
     });
 });
 
 // listen for auth status changes
 auth.onAuthStateChanged(user => {
     if(user){
-        // get data
-        db.collection('guides').onSnapshot(snapshot => {
-            setupGuides(snapshot.docs);
+        user.getIdTokenResult().then(idTokenResult => {
+            user.admin = idTokenResult.claims.admin;
             setupUI(user);
+        });
+        // get data
+        // TODO unsub on logout
+        db.collection('guides').onSnapshot(snapshot => {
+            setupGuides(snapshot.docs);            
         }, err => console.log(err));
     }else{
         setupGuides([]);
@@ -24,6 +29,7 @@ auth.onAuthStateChanged(user => {
 });
 
 // create new guide
+// TODO change rules: only admin can create guides
 const createForm = document.querySelector('#create-form');
 createForm.addEventListener('submit', e => {
     e.preventDefault();
