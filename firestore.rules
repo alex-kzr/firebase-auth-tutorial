@@ -12,7 +12,8 @@ service cloud.firestore {
     
     // match docs in the guides collection
     match /guides/{guideId} {
-    	allow read, write: if request.auth.uid != null;
+    	allow read: if request.auth.uid != null;
+      allow write: if request.auth.token.admin == true;
     }
   }
 }

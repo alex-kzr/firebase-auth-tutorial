@@ -29,7 +29,6 @@ auth.onAuthStateChanged(user => {
 });
 
 // create new guide
-// TODO change rules: only admin can create guides
 const createForm = document.querySelector('#create-form');
 createForm.addEventListener('submit', e => {
     e.preventDefault();
