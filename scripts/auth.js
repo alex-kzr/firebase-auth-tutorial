@@ -60,7 +60,10 @@ signupForm.addEventListener('submit', e => {
         }).then(() => {
             M.Modal.getInstance(document.querySelector('#modal-signup')).close();
             signupForm.reset();
-        }).catch(err => console.log(err));    
+            signupForm.querySelector('.error').innerHTML = '';
+        }).catch(err => {
+            signupForm.querySelector('.error').innerHTML = err.message;
+        });    
 });
 
 // logout
@@ -81,5 +84,8 @@ loginForm.addEventListener('submit', e => {
         .then(() => {
             M.Modal.getInstance(document.querySelector('#modal-login')).close();
             loginForm.reset();
+            loginForm.querySelector('.error').innerHTML = '';
+        }).catch(err => {
+            loginForm.querySelector('.error').innerHTML = err.message;
         });
 });
